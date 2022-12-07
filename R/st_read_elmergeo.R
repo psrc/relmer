@@ -106,6 +106,7 @@ reproject_sf <- function(lyr, in_epsg, out_epsg) {
     if (in_epsg != out_epsg) {
       sf::st_transform(lyr, out_epsg)
     }
+    return(lyr)
   }, warning = function(w) {
     print(glue::glue("A warning popped up in reproject_sf: {w}"))
   }, error = function(e) {
@@ -150,6 +151,7 @@ st_read_elmergeo <- function(layer_name, schema_name='dbo', srid = 2285) {
     layer_sql <- build_sql(schema_name=schema_name, tbl_name=tbl_name, conn)
     lyr <- sf::st_read(conn, query=layer_sql)
     reproject_sf(lyr, elmergeo_srid, srid)
+    return(lyr)
   }, warning = function(w) {
     print(glue::glue("A warning popped up in st_read_elmergeo: {w}"))
   }, error = function(e) {
