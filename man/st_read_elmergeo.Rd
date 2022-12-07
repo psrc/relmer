@@ -4,15 +4,17 @@
 \alias{st_read_elmergeo}
 \title{st_read_elmergeo(layer_name, ...)}
 \usage{
-st_read_elmergeo(layer_name, schema_name = "dbo")
+st_read_elmergeo(layer_name, schema_name = "dbo", srid = 2285)
 }
 \arguments{
 \item{layer_name}{The name of the feature layer or geodatabase table}
 
 \item{schema_name}{The name of the schema that layer_name exists in.  Defaults to "dbo", the standard schema for ElmerGeo tables}
+
+\item{srid}{The EPSG code for the spatial reference system to be used for the returned sf object.  Defaults to 2285 (NAD83 / WA State Plane North), but if you want to use the sf object in a Leaflet map you might consider setting it to 4326 (WGS84).}
 }
 \value{
-object of class sf, projected in WSG84 coordinate system
+object of class sf
 }
 \description{
 read simple features from PSRC's in-house geodatabase #'
@@ -21,9 +23,13 @@ from Elmer or ElmerGeo, because it avoids some incompatibilities
 between SQL Server's data types and R's.
 }
 \note{
+To use the returned sf object in a Leaflet map, try setting the srid parameter to 4326 (WGS84)
+
 If the layer has been set up as an ESRI versioned layer in the geodatabase, this function returns the versioned view (which exists in SQL Server with a "_evw" suffix).  If it has not been set up that way, it returns the base table.
 }
 \examples{
 st_read_elmergeo("COUNTY_BACKGROUND")
+
+st_read_elmergeo("COUNTY_BACKGROUND", srid = 4326)
 
 }

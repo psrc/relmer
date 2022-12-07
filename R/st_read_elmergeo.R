@@ -103,7 +103,9 @@ reproject_sf <- function(lyr, in_epsg, out_epsg) {
   
   tryCatch({
     st_crs(lyr) <- in_epsg
-    st_transform(lyr, out_epsg)
+    if (in_epsg != out_epsg) {
+      st_transform(lyr, out_epsg)
+    }
   }, warning = function(w) {
     print(glue::glue("A warning popped up in reproject_sf: {w}"))
   }, error = function(e) {
@@ -120,17 +122,22 @@ reproject_sf <- function(lyr, in_epsg, out_epsg) {
 #' 
 #' @param layer_name The name of the feature layer or geodatabase table
 #' @param schema_name The name of the schema that layer_name exists in.  Defaults to "dbo", the standard schema for ElmerGeo tables
-#' @return object of class sf, projected in WSG84 coordinate system
+#' @param srid The EPSG code for the spatial reference system to be used for the returned sf object.  Defaults to 2285 (NAD83 / WA State Plane North), but if you want to use the sf object in a Leaflet map you might consider setting it to 4326 (WGS84).
+#' @return object of class sf
 #'
+#' @note To use the returned sf object in a Leaflet map, try setting the srid parameter to 4326 (WGS84)
 #' @note If the layer has been set up as an ESRI versioned layer in the geodatabase, this function returns the versioned view (which exists in SQL Server with a "_evw" suffix).  If it has not been set up that way, it returns the base table.
 #' 
 #' @examples 
 #' st_read_elmergeo("COUNTY_BACKGROUND")
 #'
+#' st_read_elmergeo("COUNTY_BACKGROUND", srid = 4326)
+#'
 #' @export
-st_read_elmergeo <- function(layer_name, schema_name='dbo') {
+st_read_elmergeo <- function(layer_name, schema_name='dbo', srid = 2285) {
   
   tryCatch({
+    elmergeo_srid <- 2285
     conn <- get_conn()
     if (layer_type(layer_name, schema_name, conn) == 'evw') {
       tbl_name <- glue::glue("{layer_name}_evw")
@@ -142,7 +149,7 @@ st_read_elmergeo <- function(layer_name, schema_name='dbo') {
     }
     layer_sql <- build_sql(schema_name=schema_name, tbl_name=tbl_name, conn)
     lyr <- sf::st_read(conn, query=layer_sql)
-    reproject_sf(lyr, 2285, 4326)
+    reproject_sf(lyr, elmergeo_srid, srid)
   }, warning = function(w) {
     print(glue::glue("A warning popped up in st_read_elmergeo: {w}"))
   }, error = function(e) {
