@@ -123,7 +123,7 @@ reproject_sf <- function(lyr, in_epsg, out_epsg) {
 #' 
 #' @param layer_name The name of the feature layer or geodatabase table
 #' @param schema_name The name of the schema that layer_name exists in.  Defaults to "dbo", the standard schema for ElmerGeo tables
-#' @param as_wgs84 (TRUE/FALSE) If TRUE then deliver the output in WGS84 projection, otherwise NAD84 / WA State Plane North.  Defaults to TRUE.
+#' @param project_to_wgs84 (TRUE/FALSE) If TRUE then deliver the output in WGS84 projection, otherwise NAD84 / WA State Plane North.  Defaults to TRUE.
 #' @return object of class sf
 #'
 #' @note If the layer has been set up as an ESRI versioned layer in the geodatabase, this function returns the versioned view (which exists in SQL Server with a "_evw" suffix).  If it has not been set up that way, it returns the base table.
@@ -131,10 +131,10 @@ reproject_sf <- function(lyr, in_epsg, out_epsg) {
 #' @examples 
 #' st_read_elmergeo("COUNTY_BACKGROUND")
 #'
-#' st_read_elmergeo("COUNTY_BACKGROUND", as_wgs84 = FALSE)
+#' st_read_elmergeo("COUNTY_BACKGROUND", project_to_wgs84 = FALSE)
 #'
 #' @export
-st_read_elmergeo <- function(layer_name, schema_name='dbo', as_wgs84 = TRUE) {
+st_read_elmergeo <- function(layer_name, schema_name='dbo', project_to_wgs84 = TRUE) {
   
   tryCatch({
     elmergeo_srid <- 2285
@@ -149,7 +149,7 @@ st_read_elmergeo <- function(layer_name, schema_name='dbo', as_wgs84 = TRUE) {
     }
     layer_sql <- build_sql(schema_name=schema_name, tbl_name=tbl_name, conn)
     lyr <- sf::st_read(conn, query=layer_sql)
-    srid <- ifelse(as_wgs84, 4326, elmergeo_srid)
+    srid <- ifelse(project_to_wgs84, 4326, elmergeo_srid)
     reproject_sf(lyr, elmergeo_srid, srid)
   }, warning = function(w) {
     print(glue::glue("A warning popped up in st_read_elmergeo: {w}"))

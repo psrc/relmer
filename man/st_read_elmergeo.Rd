@@ -4,14 +4,14 @@
 \alias{st_read_elmergeo}
 \title{st_read_elmergeo(layer_name, ...)}
 \usage{
-st_read_elmergeo(layer_name, schema_name = "dbo", as_wgs84 = TRUE)
+st_read_elmergeo(layer_name, schema_name = "dbo", project_to_wgs84 = TRUE)
 }
 \arguments{
 \item{layer_name}{The name of the feature layer or geodatabase table}
 
 \item{schema_name}{The name of the schema that layer_name exists in.  Defaults to "dbo", the standard schema for ElmerGeo tables}
 
-\item{as_wgs84}{(TRUE/FALSE) If TRUE then deliver the output in WGS84 projection, otherwise NAD84 / WA State Plane North.  Defaults to TRUE.}
+\item{project_to_wgs84}{(TRUE/FALSE) If TRUE then deliver the output in WGS84 projection, otherwise NAD84 / WA State Plane North.  Defaults to TRUE.}
 }
 \value{
 object of class sf
@@ -28,6 +28,6 @@ If the layer has been set up as an ESRI versioned layer in the geodatabase, this
 \examples{
 st_read_elmergeo("COUNTY_BACKGROUND")
 
-st_read_elmergeo("COUNTY_BACKGROUND", as_wgs84 = FALSE)
+st_read_elmergeo("COUNTY_BACKGROUND", project_to_wgs84 = FALSE)
 
 }
