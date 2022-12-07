@@ -102,9 +102,9 @@ is_evw <- function(layer_name, schema_name, conn){
 reproject_sf <- function(lyr, in_epsg, out_epsg) {
   
   tryCatch({
-    st_crs(lyr) <- in_epsg
+    sf::st_crs(lyr, in_epsg)
     if (in_epsg != out_epsg) {
-      st_transform(lyr, out_epsg)
+      sf::st_transform(lyr, out_epsg)
     }
   }, warning = function(w) {
     print(glue::glue("A warning popped up in reproject_sf: {w}"))
