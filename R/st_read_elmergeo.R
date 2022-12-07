@@ -102,10 +102,11 @@ is_evw <- function(layer_name, schema_name, conn){
 reproject_sf <- function(lyr, in_epsg, out_epsg) {
   
   tryCatch({
-    sf::st_crs(lyr) <- in_epsg
+    sf::st_crs(lyr, in_epsg)
     if (in_epsg != out_epsg) {
       sf::st_transform(lyr, out_epsg)
     }
+    return(lyr)
   }, warning = function(w) {
     print(glue::glue("A warning popped up in reproject_sf: {w}"))
   }, error = function(e) {
@@ -151,6 +152,7 @@ st_read_elmergeo <- function(layer_name, schema_name='dbo', project_to_wgs84 = T
     lyr <- sf::st_read(conn, query=layer_sql)
     srid <- ifelse(project_to_wgs84, 4326, elmergeo_srid)
     reproject_sf(lyr, elmergeo_srid, srid)
+    return(lyr)
   }, warning = function(w) {
     print(glue::glue("A warning popped up in st_read_elmergeo: {w}"))
   }, error = function(e) {
