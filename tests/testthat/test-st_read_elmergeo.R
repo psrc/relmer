@@ -11,6 +11,10 @@ test_that("st_read_elmergeo('fakefake') does return an error of type 'no layer e
 })
 
 
-test_that('errors can occur', {
-  expect_error(1/"a")
+test_that('st_read_elmergeo() returns a layer with srid 4326', {
+  lyr = relmer::st_read_elmergeo('COUNTY_BACKGROUND')
+  lyr.crs = sf::st_crs(lyr)
+  lyr.srid = lyr.crs[[1]]
+  expect_equal(lyr.srid, "EPSG:4326")
 })
+
