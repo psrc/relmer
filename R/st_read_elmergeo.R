@@ -144,8 +144,7 @@ st_read_elmergeo <- function(layer_name, schema_name='dbo', project_to_wgs84 = T
     } else if (layer_type(layer_name, schema_name, conn) == 'nonversioned') {
       tbl_name <- layer_name
     } else if (layer_type(layer_name, schema_name, conn) == 'none') {
-      print(glue::glue("Layer {layer_name} does not exist in database."))
-      stop()
+      stop("no layer error")
     }
     layer_sql <- build_sql(schema_name=schema_name, tbl_name=tbl_name, conn)
     lyr <- sf::st_read(conn, query=layer_sql)  %>% sf::st_set_crs(2285)
