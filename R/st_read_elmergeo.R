@@ -148,7 +148,7 @@ st_read_elmergeo <- function(layer_name, schema_name='dbo', project_to_wgs84 = T
       stop()
     }
     layer_sql <- build_sql(schema_name=schema_name, tbl_name=tbl_name, conn)
-    lyr <- sf::st_read(conn, query=layer_sql) %>% sf::st_crs(2285)
+    lyr <- sf::st_read(conn, query=layer_sql)  %>% sf::st_set_crs(2285)
     if(project_to_wgs84){
       reproject_sf(lyr, 4326)
     }
