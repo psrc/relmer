@@ -155,7 +155,7 @@ st_read_elmergeo <- function(layer_name, schema_name='dbo', project_to_wgs84 = T
   }, warning = function(w) {
     print(glue::glue("A warning popped up in st_read_elmergeo: {w}"))
   }, error = function(e) {
-    print(glue::glue("An error happened in st_read_elmergeo: {e}"))
+    stop(glue::glue('stopped within error handler in st_read_elmergeo: {e}'))
   })
 }
 
