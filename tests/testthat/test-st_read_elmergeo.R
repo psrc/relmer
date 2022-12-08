@@ -15,5 +15,4 @@ test_that('errors can occur', {
   expect_error(1/"a")
 })
 
-  relmer::st_read_elmergeo('fakefake')
   
