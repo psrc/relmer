@@ -6,7 +6,7 @@ Authors@R: c(
     person("Michael", "Jensen", "mjensen@psrc.org", role = "aut"))
 Maintainer: Chris Peak <cpeak@psrc.org>
 Description: Provides streamlined methods to retrieve data from PSRC's databases Elmer and ElmerGeo.
-License: use_gpl3_license()
+License: GPL-3 + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.2
