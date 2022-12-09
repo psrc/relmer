@@ -14,7 +14,8 @@ Imports:
   DBI,
   glue,
   odbc,
-  sf
+  sf,
+  magrittr
 Suggests: 
     knitr,
     rmarkdown,

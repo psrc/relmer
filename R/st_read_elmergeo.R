@@ -170,10 +170,8 @@ st_read_elmergeo <- function(layer_name, schema_name='dbo', project_to_wgs84 = T
       stop("no layer error")
     }
     layer_sql <- build_sql(schema_name=schema_name, tbl_name=tbl_name, conn)
-    #2285 = WA State Plane N
-    # lyr <- sf::st_read(conn, query=layer_sql) %>% sf::st_set_crs(2285)
-    lyr <- sf::st_read(conn, query=layer_sql) 
-    lyr <- sf::st_set_crs(lyr, 2285)
+    lyr <- sf::st_read(conn, query=layer_sql)
+    lyr <- sf::st_set_crs(lyr, 2285) #2285 = WA State Plane N
     if(project_to_wgs84){
       lyr <- reproject_sf(lyr, 4326) #4326 = WGS84
     }
