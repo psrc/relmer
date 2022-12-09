@@ -1,10 +1,7 @@
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
-})
-
 test_that("st_read_elmergeo('county_background') does not return an error", {
   expect_error(relmer::st_read_elmergeo('county_background'), NA)
 })
+
 
 test_that("st_read_elmergeo('fakefake') does return an error of type 'no layer error'", {
   expect_error(relmer::st_read_elmergeo('fakefake'), "no layer error")
@@ -24,4 +21,8 @@ test_that('st_read_elmergeo(project_to_wgs84=FALSE) returns a layer with srid 22
   lyr.crs = sf::st_crs(lyr)
   lyr.srid = lyr.crs[[1]]
   expect_equal(lyr.srid, "EPSG:2285")
+})
+
+test_that("check_sql_driver('bogus_driver') returns an error", {
+  expect_error(relmer::check_sql_driver('bogus_driver'))
 })
