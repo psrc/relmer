@@ -102,7 +102,9 @@ is_evw <- function(layer_name, schema_name, conn){
 reproject_sf <- function(lyr, out_epsg) {
 
   tryCatch({
-    in_epsg <- sf::st_crs(lyr)
+    in_crs <- sf::st_crs(lyr)
+    in_epsg_str <- stringr::str_replace(in_crs[[1]], 'EPSG:', '')
+    in_epsg <- strtoi(in_epsg_str)
     if (in_epsg != out_epsg) {
       lyr <- sf::st_transform(lyr, out_epsg)
     }
@@ -147,9 +149,9 @@ st_read_elmergeo <- function(layer_name, schema_name='dbo', project_to_wgs84 = T
       stop("no layer error")
     }
     layer_sql <- build_sql(schema_name=schema_name, tbl_name=tbl_name, conn)
-    lyr <- sf::st_read(conn, query=layer_sql)  %>% sf::st_set_crs(2285)
+    lyr <- sf::st_read(conn, query=layer_sql)  %>% sf::st_set_crs(2285) #2285 = WA State Plane N
     if(project_to_wgs84){
-      lyr <- reproject_sf(lyr, 4326)
+      lyr <- reproject_sf(lyr, 4326) #4326 = WGS84
     }
     return(lyr)
   }, warning = function(w) {

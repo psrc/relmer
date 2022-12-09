@@ -18,3 +18,10 @@ test_that('st_read_elmergeo() returns a layer with srid 4326', {
   expect_equal(lyr.srid, "EPSG:4326")
 })
 
+
+test_that('st_read_elmergeo(project_to_wgs84=FALSE) returns a layer with srid 2285', {
+  lyr = relmer::st_read_elmergeo('COUNTY_BACKGROUND', project_to_wgs84 = FALSE)
+  lyr.crs = sf::st_crs(lyr)
+  lyr.srid = lyr.crs[[1]]
+  expect_equal(lyr.srid, "EPSG:2285")
+})
