@@ -2,8 +2,8 @@ Package: psrcelmer
 Title: Provides streamlined methods to retrieve data from PSRC's databases Elmer and ElmerGeo.
 Version: 0.0.0.9000
 Authors@R: c(
-    person("Chris", "Peak", , "cpeak@psrc.org", role = c("aut", "cre")),
-    person("Michael", "Jensen", , "mjensen@psrc.org", role = "aut"))
+    person("Chris", "Peak", , email = "cpeak@psrc.org", role = c("aut", "cre")),
+    person("Michael", "Jensen", , email = "mjensen@psrc.org", role = "aut"))
 Maintainer: Chris Peak <cpeak@psrc.org>
 Description: Provides streamlined methods to retrieve data from PSRC's databases Elmer and ElmerGeo.
 License: GPL-3 + file LICENSE
@@ -17,7 +17,7 @@ Imports:
   sf,
   magrittr
 Suggests: 
-    knitr,
+    knitr, %>% 
     rmarkdown,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
