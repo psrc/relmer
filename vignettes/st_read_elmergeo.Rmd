@@ -22,10 +22,10 @@ library(psrcelmer)
 
 ### Example
 
-The following creates an *sf* object `c_bound` from the ElmerGeo layer *COUNTY_BACKGROUND*:
+The following creates an *sf* object `county_layer` from the polygon layer *COUNTY_BACKGROUND* in ElmerGeo:
 
 
 ```{r}
 library(psrcelmer)
-c_bound <- st_read_elmergeo('COUNTY_BACKGROUND')
+county_layer <- st_read_elmergeo('COUNTY_BACKGROUND')
 ```

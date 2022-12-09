@@ -175,7 +175,7 @@ st_read_elmergeo <- function(layer_name, schema_name='dbo', project_to_wgs84 = T
     if(project_to_wgs84){
       lyr <- reproject_sf(lyr, 4326) #4326 = WGS84
     }
-    dbDisconnect(conn)
+    DBI::dbDisconnect(conn)
     return(lyr)
   }, warning = function(w) {
     print(glue::glue("A warning popped up in st_read_elmergeo: {w}"))

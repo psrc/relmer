@@ -71,7 +71,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">psrcelmer</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://psrc.github.io/psrcelmer/">psrcelmer</a></span><span class="op">)</span></span></code></pre></div>
 <p><code><a href="../reference/st_read_elmergeo.html">st_read_elmergeo()</a></code> should be used to pull data from
 ElmerGeo (or Elmer) into an <em>sf</em> object. Tell it the name of the
 layer (or table name) you want to pull. It opens and closes the
@@ -80,11 +80,11 @@ connection.</p>
 <div class="section level3">
 <h3 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h3>
-<p>The following creates an <em>sf</em> object <code>c_bound</code> from
-the ElmerGeo layer <em>COUNTY_BACKGROUND</em>:</p>
+<p>The following creates an <em>sf</em> object <code>county_layer</code>
+from the polygon layer <em>COUNTY_BACKGROUND</em> in ElmerGeo:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">psrcelmer</span><span class="op">)</span></span>
-<span><span class="va">c_bound</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/st_read_elmergeo.html">st_read_elmergeo</a></span><span class="op">(</span><span class="st">'COUNTY_BACKGROUND'</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://psrc.github.io/psrcelmer/">psrcelmer</a></span><span class="op">)</span></span>
+<span><span class="va">county_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/st_read_elmergeo.html">st_read_elmergeo</a></span><span class="op">(</span><span class="st">'COUNTY_BACKGROUND'</span><span class="op">)</span></span></code></pre></div>
 </div>
   </main>
 </div>
