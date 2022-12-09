@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(relmer)
+library(psrcelmer)
 ```
 
 `st_read_elmergeo()` should be used to pull data from ElmerGeo (or Elmer) into an *sf* object. Tell it the name of the layer (or table name) you want to pull.  It opens and closes the connection inherently, so there is no need to create your own DBI connection.
@@ -26,6 +26,6 @@ The following creates an *sf* object `c_bound` from the ElmerGeo layer *COUNTY_B
 
 
 ```{r}
-library(relmer)
+library(psrcelmer)
 c_bound <- st_read_elmergeo('COUNTY_BACKGROUND')
 ```
