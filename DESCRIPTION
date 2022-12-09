@@ -1,12 +1,12 @@
 Package: psrcelmer
 Title: Provides streamlined methods to retrieve data from PSRC's databases Elmer and ElmerGeo.
 Version: 0.0.0.9000
-Authors@R: 
-    person("Chris", "Peak", , "cpeak@psrc.org", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Authors@R: c(
+    person("Chris", "Peak", , "cpeak@psrc.org", role = c("aut", "cre")),
+    person("Michael", "Jensen", "mjensen@psrc.org", role = "aut"))
+Maintainer: Chris Peak <cpeak@psrc.org>
+Description: Provides streamlined methods to retrieve data from PSRC's databases Elmer and ElmerGeo.
+License: use_gpl3_license()
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.2
