@@ -16,6 +16,7 @@ get_table <- function(db_name = 'Elmer', schema, tbl_name) {
   tryCatch({
     conn <- get_conn(dbname = db_name)
     check_for_schema(conn, schema = schema, db_name = db_name)
+    check_for_table(conn, schema = schema, tbl_name = tbl_name)
     full_tbl_name <- glue::glue("{schema}.{tbl_name}")
     df <- DBI::dbReadTable(conn, DBI::SQL(full_tbl_name))
     DBI::dbDisconnect(conn)
@@ -42,6 +43,26 @@ check_for_schema <- function(conn, schema, db_name) {
     print(glue::glue("A warning popped up in check_for_schema: {w}"))
   }, error = function(e) {
     print(glue::glue("An error happened in check_for_schema: {e}"))
+    stop(e)
+  })
+}
+
+
+check_for_table <- function(conn, schema, tbl_name) {
+  tryCatch({
+    sql = glue::glue("SELECT TABLE_NAME ",
+                     "FROM INFORMATION_SCHEMA.TABLES ",
+                     "WHERE TABLE_SCHEMA = '{schema}' ",
+                     "AND TABLE_NAME = '{tbl_name}'")
+    df <- DBI::dbGetQuery(conn = conn, DBI::SQL(sql))
+    if (nrow(df) == 0) {
+      msg <- glue::glue("Table {tbl_name} does not exist in the schema {schema}.")
+      stop(msg)
+    }
+  }, warning = function(w) {
+    print(glue::glue("A warning popped up in check_for_table: {w}"))
+  }, error = function(e) {
+    print(glue::glue("An error happened in check_for_table: {e}"))
     stop(e)
   })
 }

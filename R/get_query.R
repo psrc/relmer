@@ -2,8 +2,8 @@
 #' 
 #' Retrieve a dataset defined by a SQL string
 #'
-#' @param db_name The name of the database to run the query against.  Should be "Elmer" or "ElmerGeo".  Default = "Elmer".
-#' @param sql The SQL command to send to <db_name>.
+#' @param db_name String.  The name of the database to run the query against.  Should be "Elmer" or "ElmerGeo".  Default = "Elmer".
+#' @param sql String.  The SQL command to send to <db_name>.
 #' @return A data frame.
 #' 
 #' @examples
