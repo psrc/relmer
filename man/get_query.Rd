@@ -4,10 +4,10 @@
 \alias{get_query}
 \title{get_query(db_name, sql)}
 \usage{
-get_query(db_name, sql)
+get_query(db_name = "Elmer", sql)
 }
 \arguments{
-\item{db_name}{The name of the database to run the query against.  Should be "Elmer" or "ElmerGeo".}
+\item{db_name}{The name of the database to run the query against.  Should be "Elmer" or "ElmerGeo".  Default = "Elmer".}
 
 \item{sql}{The SQL command to send to <db_name>.}
 }
