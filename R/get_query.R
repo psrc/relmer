@@ -5,6 +5,10 @@
 #' @param db_name The name of the database to run the query against.  Should be "Elmer" or "ElmerGeo".  Default = "Elmer".
 #' @param sql The SQL command to send to <db_name>.
 #' @return A data frame.
+#' 
+#' @examples
+#' get_query("select * from chas.tenure_dim")
+#' get_query(db_name = "ElmerGeo", sql = "select geoid10 from dbo.TRACT2010")
 #'
 #' @export
 get_query <- function(db_name = 'Elmer', sql) {

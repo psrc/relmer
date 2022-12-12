@@ -7,6 +7,9 @@
 #' @param tbl_name String.  The name of the table to be retrieved.  No default.
 #' @return A data frame.
 #'
+#' @examples
+#' get_table('chas', 'tenure_dim')
+#' 
 #' @export
 get_table <- function(db_name = 'Elmer', schema, tbl_name) {
   

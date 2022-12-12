@@ -19,3 +19,7 @@ A data frame.
 \description{
 Retrieve a dataset defined by a table name.
 }
+\examples{
+get_table('chas', 'tenure_dim')
+
+}
