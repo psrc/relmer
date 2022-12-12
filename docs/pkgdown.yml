@@ -3,7 +3,7 @@ pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   st_read_elmergeo: st_read_elmergeo.html
-last_built: 2022-12-12T22:12Z
+last_built: 2022-12-12T22:23Z
 urls:
   reference: https://psrc.github.io/psrcelmer/reference
   article: https://psrc.github.io/psrcelmer/articles

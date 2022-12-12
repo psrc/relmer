@@ -7,9 +7,9 @@
 get_query(db_name = "Elmer", sql)
 }
 \arguments{
-\item{db_name}{The name of the database to run the query against.  Should be "Elmer" or "ElmerGeo".  Default = "Elmer".}
+\item{db_name}{String.  The name of the database to run the query against.  Should be "Elmer" or "ElmerGeo".  Default = "Elmer".}
 
-\item{sql}{The SQL command to send to <db_name>.}
+\item{sql}{String.  The SQL command to send to <db_name>.}
 }
 \value{
 A data frame.
