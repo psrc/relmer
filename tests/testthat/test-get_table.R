@@ -5,6 +5,7 @@ test_that('get_table("chas", "tenure_dim") returns a dataframe', {
   expect_equal(class(df), 'data.frame')
 })
 
-test_that("get_table('bogus_name') returns an error", {
-  expect_error(psrcelmer::get_table(schema = 'bogus_schema', tbl_name = 'bogus_name'))
+test_that("get_table('bogus_schema', 'bogus_table') returns a bad-schema error", {
+  db = "Elmer"
+  expect_error(psrcelmer::get_table(schema = 'bogus_schema', tbl_name = 'bogus_name'), 'Schema bogus_schema does not exist in the database Elmer' )
 })
