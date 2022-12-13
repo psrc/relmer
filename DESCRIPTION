@@ -15,7 +15,8 @@ Imports:
   glue,
   odbc,
   sf,
-  magrittr
+  magrittr,
+  yaml
 Suggests: 
     knitr, 
     rmarkdown,

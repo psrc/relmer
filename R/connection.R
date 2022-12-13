@@ -17,16 +17,63 @@ check_sql_driver <- function(driver_name) {
   })
 }
 
+is.windows <- function() {
+  tryCatch({
+    sysname = Sys.info()['sysname']
+    is.win <- FALSE
+    if (sysname == 'Windows') {
+      is.win <- TRUE
+    }
+    return(is.win)
+  }, warning = function(w) {
+    print(glue::glue("A warning popped up in get_os: {w}"))
+  }, error = function(e) {
+    print(glue::glue("An error happened in get_os: {e}"))
+    stop(e)
+  })
+}
+
+
+build_conn <- function(dbname, driver_name) {
+  
+  tryCatch({
+    if (is.windows()) {
+      conn <- DBI::dbConnect(odbc::odbc(),
+                             driver = driver_name,
+                             server = "AWS-PROD-SQL\\Sockeye",
+                             database = dbname,
+                             trusted_connection = "yes")
+    } else {
+      auth <- get_auth()
+      conn <- DBI::dbConnect(odbc::odbc(),
+                             driver = driver_name,
+                             server = "AWS-PROD-SQL\\Sockeye",
+                             database = dbname,
+                             uid = auth$uid,
+                             pwd = auth$pwd)
+      print("!!!NON-WINDOWS CONNECTION STRING!!!")
+    }
+    return(conn)
+  }, warning = function(w) {
+    print(glue::glue("A warning popped up in build_conn_str: {w}"))
+  }, error = function(e) {
+    print(glue::glue("An error happened in build_conn_str: {e}"))
+    stop(e)
+  })
+}
+
 get_conn <- function(dbname='ElmerGeo') {
 
   tryCatch({
     driver_name = 'ODBC Driver 17 for SQL Server'
     check_sql_driver(driver_name)
-    DBI::dbConnect(odbc::odbc(),
-              driver = driver_name,
-              server = "AWS-PROD-SQL\\Sockeye",
-              database = dbname,
-              trusted_connection = "yes")
+    # DBI::dbConnect(odbc::odbc(),
+    #           driver = driver_name,
+    #           server = "AWS-PROD-SQL\\Sockeye",
+    #           database = dbname,
+    #           trusted_connection = "yes")
+    conn <- build_conn(dbname, driver_name)
+    return(conn)
   }, warning = function(w) {
     print(glue::glue("A warning popped up in get_conn: {w}"))
   }, error = function(e) {
