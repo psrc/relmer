@@ -47,8 +47,9 @@ is_table <- function(layer_name, schema_name, conn, as_evw = FALSE){
 
   tryCatch({
     suffix <- ifelse(as_evw, '_evw', '')
+    infoschm_tbl <- ifelse(as_evw, 'VIEWS', 'TABLES')
     info_schema_sql <- glue::glue("SELECT TABLE_NAME
-                            FROM INFORMATION_SCHEMA.VIEWS as v
+                            FROM INFORMATION_SCHEMA.{infoschm_tbl} as v
                             WHERE v.TABLE_NAME = \'{layer_name}{suffix}\'
                               AND v.TABLE_SCHEMA = \'{schema_name}\'")
     info_schema_df <- DBI::dbGetQuery(conn, DBI::SQL(info_schema_sql))
