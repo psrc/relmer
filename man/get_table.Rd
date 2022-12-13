@@ -20,6 +20,6 @@ A data frame.
 Retrieve a dataset defined by a table name.
 }
 \examples{
-get_table('chas', 'tenure_dim')
+get_table(schema = 'chas', tbl_name = 'tenure_dim')
 
 }

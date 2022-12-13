@@ -74,14 +74,15 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_table</span><span class="op">(</span><span class="st">'chas'</span>, <span class="st">'tenure_dim'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> An error happened in get_conn: Error: nanodbc/nanodbc.cpp:1021: 42000: [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Login failed for user 'PSRC\CPeak'.  [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Cannot open database "chas" requested by the login. The login failed. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> An error happened in check_for_schema: Error in (function (classes, fdef, mtable) : unable to find an inherited method for function ‘dbGetQuery’ for signature ‘"glue", "SQL"’</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> An error happened in get_table: Error in (function (classes, fdef, mtable) : unable to find an inherited method for function ‘dbGetQuery’ for signature ‘"glue", "SQL"’</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in (function (classes, fdef, mtable) {    methods &lt;- .findInheritedMethods(classes, fdef, mtable)    if (length(methods) == 1L)         return(methods[[1L]])    else if (length(methods) == 0L) {        cnames &lt;- paste0("\"", vapply(classes, as.character,             ""), "\"", collapse = ", ")        stop(gettextf("unable to find an inherited method for function %s for signature %s",             sQuote(fdef@generic), sQuote(cnames)), domain = NA)    }    else stop("Internal error in finding inherited methods; didn't return a unique method",         domain = NA)})(list("glue", structure("SQL", package = "DBI")), new("standardGeneric",     .Data = function (conn, statement, ...)     standardGeneric("dbGetQuery"), generic = structure("dbGetQuery", package = "DBI"),     package = "DBI", group = list(), valueClass = character(0),     signature = c("conn", "statement"), default = NULL, skeleton = (function (conn,         statement, ...)     stop(gettextf("invalid call in method dispatch to '%s' (no default method)",         "dbGetQuery"), domain = NA))(conn, statement, ...)),     &lt;environment&gt;):</span> unable to find an inherited method for function ‘dbGetQuery’ for signature ‘"glue", "SQL"’</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_table</span><span class="op">(</span>schema <span class="op">=</span> <span class="st">'chas'</span>, tbl_name <span class="op">=</span> <span class="st">'tenure_dim'</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   tenure_dim_id          created_at          updated_at</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1             1 2021-01-08 14:47:29 2021-01-08 15:07:17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2             2 2021-01-08 14:47:29 2021-01-08 15:07:17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3             3 2021-01-08 14:47:29 2021-01-08 15:07:33</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     tenure_name tenure_order</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                Owner occupied            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2               Renter occupied            2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Total: Occupied housing units            0</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

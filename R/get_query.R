@@ -7,8 +7,8 @@
 #' @return A data frame.
 #' 
 #' @examples
-#' get_query("select * from chas.tenure_dim")
-#' get_query(db_name = "ElmerGeo", sql = "select geoid10 from dbo.TRACT2010")
+#' get_query(sql = "select * from chas.tenure_dim")
+#' get_query(db_name = "ElmerGeo", sql = "select top 10 geoid10 from dbo.TRACT2010")
 #'
 #' @export
 get_query <- function(db_name = 'Elmer', sql) {
