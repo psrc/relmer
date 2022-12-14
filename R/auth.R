@@ -1,10 +1,9 @@
 get_auth <- function(){
   
   tryCatch({
-    conf <- yaml::yaml.load_file('config.yml')
     auth <- list(
-        'uid'=conf$Auth$uid,
-        'pwd' = conf$Auth$pwd)
+        'uid'=Sys.getenv('SOCKEYE_UID'),
+        'pwd' = Sys.getenv('SOCKEYE_PWD'))
     return(auth)
   }, warning = function(w) {
     print(glue::glue("A warning popped up in get_auth: {w}"))

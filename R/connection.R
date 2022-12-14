@@ -51,7 +51,6 @@ build_conn <- function(dbname, driver_name) {
                              database = dbname,
                              uid = auth$uid,
                              pwd = auth$pwd)
-      print("!!!NON-WINDOWS CONNECTION STRING!!!")
     }
     return(conn)
   }, warning = function(w) {
@@ -67,11 +66,6 @@ get_conn <- function(dbname='ElmerGeo') {
   tryCatch({
     driver_name = 'ODBC Driver 17 for SQL Server'
     check_sql_driver(driver_name)
-    # DBI::dbConnect(odbc::odbc(),
-    #           driver = driver_name,
-    #           server = "AWS-PROD-SQL\\Sockeye",
-    #           database = dbname,
-    #           trusted_connection = "yes")
     conn <- build_conn(dbname, driver_name)
     return(conn)
   }, warning = function(w) {
