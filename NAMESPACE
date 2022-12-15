@@ -2,4 +2,5 @@
 
 export(get_query)
 export(get_table)
+export(list_layers)
 export(st_read_elmergeo)
