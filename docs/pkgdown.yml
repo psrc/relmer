@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   create-a-map-with-elmergeo-data: create-a-map-with-elmergeo-data.html
   st_read_elmergeo: st_read_elmergeo.html
-last_built: 2022-12-16T18:17Z
+last_built: 2022-12-16T21:12Z
 urls:
   reference: https://psrc.github.io/psrcelmer/reference
   article: https://psrc.github.io/psrcelmer/articles

@@ -21,19 +21,14 @@ library(leaflet)
 
 With just two packages you can create an interactive map that displays layers from PSRC's *ElmerGeo* database.  This short article will show you how. 
 
-## What is *ElmerGeo*?
+## What is *Leaflet*?
 
-ElmerGeo is PSRC's home for geospatial data for use by staff.  In the past we used shapefiles for our spatial data, but today we store these as layers within a geodatabase.  At PSRC, the database we use for this purpose is named *ElmerGeo*.  
+Leaflet is a popular open-source JavaScript library for interactive maps.  R has a package *leaflet* that makes it easy to integrate and control Leaflet maps in R.  Leaflet maps can be made to display the spatial data in one or more *simple-feature* (or *sf*) layers. 
 
-*Side note: there is also a similarly-named database "Elmer", also on the agency's SQL Server, that is used primarily for non-spatial tables.*
 
 ## What is *sf*?
 
 *SF* stands for "simple features", a standardized way of encoding spatial data.  In R, spatial datasets are typically stored as *sf* objects.  
-
-## What is *Leaflet*?
-
-Leaflet is a popular open-source JavaScript library for interactive maps.  R has a package *leaflet* that makes it easy to integrate and control Leaflet maps in R.  Leaflet maps can be made to display the spatial data in one or more *sf* layers. 
 
 ## So how do I make a map?
 
@@ -47,7 +42,7 @@ Here we create an *sf* layer from the data in ElmerGeo, using the `st_read_elmer
   my_county_layer <- st_read_elmergeo('COUNTY_BACKGROUND')
 ```
 
-2.Display our layer on a leaflet map.  
+2. Display our layer on a leaflet map.  
 
 This creates a map with very simple styling.  You can learn how to enhance its aesthetics through the [leaflet documentation](https://rstudio.github.io/leaflet/).
 

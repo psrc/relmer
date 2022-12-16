@@ -78,15 +78,13 @@
 displays layers from PSRC’s <em>ElmerGeo</em> database. This short
 article will show you how.</p>
 <div class="section level2">
-<h2 id="what-is-elmergeo">What is <em>ElmerGeo</em>?<a class="anchor" aria-label="anchor" href="#what-is-elmergeo"></a>
+<h2 id="what-is-leaflet">What is <em>Leaflet</em>?<a class="anchor" aria-label="anchor" href="#what-is-leaflet"></a>
 </h2>
-<p>ElmerGeo is PSRC’s home for geospatial data for use by staff. In the
-past we used shapefiles for our spatial data, but today we store these
-as layers within a geodatabase. At PSRC, the database we use for this
-purpose is named <em>ElmerGeo</em>.</p>
-<p><em>Side note: there is also a similarly-named database “Elmer”, also
-on the agency’s SQL Server, that is used primarily for non-spatial
-tables.</em></p>
+<p>Leaflet is a popular open-source JavaScript library for interactive
+maps. R has a package <em>leaflet</em> that makes it easy to integrate
+and control Leaflet maps in R. Leaflet maps can be made to display the
+spatial data in one or more <em>simple-feature</em> (or <em>sf</em>)
+layers.</p>
 </div>
 <div class="section level2">
 <h2 id="what-is-sf">What is <em>sf</em>?<a class="anchor" aria-label="anchor" href="#what-is-sf"></a>
@@ -94,14 +92,6 @@ tables.</em></p>
 <p><em>SF</em> stands for “simple features”, a standardized way of
 encoding spatial data. In R, spatial datasets are typically stored as
 <em>sf</em> objects.</p>
-</div>
-<div class="section level2">
-<h2 id="what-is-leaflet">What is <em>Leaflet</em>?<a class="anchor" aria-label="anchor" href="#what-is-leaflet"></a>
-</h2>
-<p>Leaflet is a popular open-source JavaScript library for interactive
-maps. R has a package <em>leaflet</em> that makes it easy to integrate
-and control Leaflet maps in R. Leaflet maps can be made to display the
-spatial data in one or more <em>sf</em> layers.</p>
 </div>
 <div class="section level2">
 <h2 id="so-how-do-i-make-a-map">So how do I make a map?<a class="anchor" aria-label="anchor" href="#so-how-do-i-make-a-map"></a>
@@ -115,7 +105,9 @@ polygons from the COUNTY_BACKGROUND feature layer in ElmerGeo.</p>
 <p>Here we create an <em>sf</em> layer from the data in ElmerGeo, using
 the <code><a href="../reference/st_read_elmergeo.html">st_read_elmergeo()</a></code> function:</p>
 <pre><code><span>  <span class="va">my_county_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/st_read_elmergeo.html">st_read_elmergeo</a></span><span class="op">(</span><span class="st">'COUNTY_BACKGROUND'</span><span class="op">)</span></span></code></pre>
-<p>2.Display our layer on a leaflet map.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Display our layer on a leaflet map.</li>
+</ol>
 <p>This creates a map with very simple styling. You can learn how to
 enhance its aesthetics through the <a href="https://rstudio.github.io/leaflet/" class="external-link">leaflet documentation</a>.</p>
 <p>If you are using RStudio this map should automatically be rendered in

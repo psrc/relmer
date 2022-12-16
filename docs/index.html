@@ -61,17 +61,34 @@
 <div class="page-header"><h1 id="psrcelmer">psrcelmer<a class="anchor" aria-label="anchor" href="#psrcelmer"></a>
 </h1></div>
 <p>R utilities for interacting with Elmer and ElmerGeo</p>
+<p>This package provides a few single-line tools to retrieve data sets from PSRC’s data warehouse databases <em>Elmer</em> and <em>ElmerGeo</em>.</p>
+<div class="section level2">
+<h2 id="what-is-elmer">What is <em>Elmer</em>?<a class="anchor" aria-label="anchor" href="#what-is-elmer"></a>
+</h2>
+<p>Elmer is a database containing the agency’s general-use tabular data. We are constantly expanding its contents, which currently ranges from demographic, employment, aviation, parking, and other survey data.</p>
+</div>
+<div class="section level2">
+<h2 id="what-is-elmergeo">What is <em>ElmerGeo</em>?<a class="anchor" aria-label="anchor" href="#what-is-elmergeo"></a>
+</h2>
+<p>ElmerGeo is PSRC’s home for geospatial data for use by staff. In the past we used shapefiles for our spatial data, but today we store these as layers within a geodatabase. At PSRC, the database we use for this purpose is named <em>ElmerGeo</em>.</p>
+</div>
 <div class="section level2">
 <h2 id="installation-instructions">Installation Instructions<a class="anchor" aria-label="anchor" href="#installation-instructions"></a>
 </h2>
-<p>Install with the following command: <code>devtools::install_github("psrc/psrcelmer")</code></p>
-<p>Load the package with <code><a href="https://psrc.github.io/psrcelmer/">library(psrcelmer)</a></code></p>
+<p>You can install the package with the following command:</p>
+<pre><code><span>  <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"psrc/psrcelmer"</span><span class="op">)</span></span></code></pre>
+<p>Then load it with:</p>
+<pre><code><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://psrc.github.io/psrcelmer/">psrcelmer</a></span><span class="op">)</span></span></code></pre>
 </div>
 <div class="section level2">
-<h2 id="package-contents">Package Contents<a class="anchor" aria-label="anchor" href="#package-contents"></a>
+<h2 id="database-authentication">Database Authentication<a class="anchor" aria-label="anchor" href="#database-authentication"></a>
 </h2>
-<p>At present, it includes only one user-accessible function <code><a href="reference/st_read_elmergeo.html">st_read_elmergeo()</a></code>.</p>
-<p>For information on that, run the command <code><a href="reference/st_read_elmergeo.html">?st_read_elmergeo</a></code> after loading the package.</p>
+<p>To use this package you will first need a login to the SQL Server <em>Sockeye</em> (at AWS-PROD-SQL\Sockeye). See the agency’s IT staff if you need a login created, or if have questions about this.</p>
+<p>If you are on a Windows machine, you should now have all you need in order to connect and retrieve data from both Elmer and ElmerGeo. This is because your Windows account can authenticate you seamlessly, without requiring you to supply another username and password.</p>
+<p>If you are on a Mac, Linux or TRS-80 machine you will need provide a username and password. To do this, you will need to set up two environment variables on your computer. These variables are <code>SOCKEYE_UID</code> and <code>SOCKEYE_PWD</code>. So, if your SQL username were “some_username” and your password were “some_passwd”, you could set these as so, in R:</p>
+<pre><code><span>  <span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span><span class="st">'SOCKEYE_UID'</span> <span class="op">=</span> <span class="st">'some_username'</span>, </span>
+<span>             <span class="st">'SOCKEYE_PWD'</span> <span class="op">=</span> <span class="st">'some_passwd'</span><span class="op">)</span></span></code></pre>
+<p>Once these are set, you should be able to connect and run the functions in this package.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">
