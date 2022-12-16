@@ -1,0 +1,60 @@
+---
+title: "Create a Map with ElmerGeo Data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{create-a-map-with-elmergeo-data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, warning = FALSE} 
+library(psrcelmer)
+library(leaflet)
+```
+
+With just two packages you can create an interactive map that displays layers from PSRC's *ElmerGeo* database.  This short article will show you how. 
+
+## What is *ElmerGeo*?
+
+ElmerGeo is PSRC's home for geospatial data for use by staff.  In the past we used shapefiles for our spatial data, but today we store these as layers within a geodatabase.  At PSRC, the database we use for this purpose is named *ElmerGeo*.  
+
+*Side note: there is also a similarly-named database "Elmer", also on the agency's SQL Server, that is used primarily for non-spatial tables.*
+
+## What is *sf*?
+
+*SF* stands for "simple features", a standardized way of encoding spatial data.  In R, spatial datasets are typically stored as *sf* objects.  
+
+## What is *Leaflet*?
+
+Leaflet is a popular open-source JavaScript library for interactive maps.  R has a package *leaflet* that makes it easy to integrate and control Leaflet maps in R.  Leaflet maps can be made to display the spatial data in one or more *sf* layers. 
+
+## So how do I make a map?
+
+You can make a simple map in essentially two steps (three if you count loading the libraries).  The example below create a layer of county polygons from the COUNTY_BACKGROUND feature layer in ElmerGeo.
+
+
+1. Create the layer
+
+Here we create an *sf* layer from the data in ElmerGeo, using the `st_read_elmergeo()` function:
+```
+  my_county_layer <- st_read_elmergeo('COUNTY_BACKGROUND')
+```
+
+2.Display our layer on a leaflet map.  
+
+This creates a map with very simple styling.  You can learn how to enhance its aesthetics through the [leaflet documentation](https://rstudio.github.io/leaflet/).
+
+If you are using RStudio this map should automatically be rendered in the *viewer* pane.
+```
+  leaflet() %>%
+    addProviderTiles(providers$CartoDB.Positron) %>%
+    addPolygons(data = my_county_layer)
+```
+
