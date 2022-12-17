@@ -30,7 +30,7 @@ To use this package you will first need a login to the SQL Server *Sockeye* (at 
 
 If you are on a Windows machine, you should now have all you need in order to connect and retrieve data from both Elmer and ElmerGeo. This is because your Windows account can authenticate you seamlessly, without requiring you to supply another username and password.
 
-If you are on a Mac, Linux or TRS-80 machine you will need provide a username and password.  To do this, you will need to set up two environment variables on your computer.  These variables are `SOCKEYE_UID` and `SOCKEYE_PWD`.  So, if your SQL username were "some_username" and your password were "some_passwd", you could set these as so, in R:
+If you are on a Mac, Linux box or TRS-80 you will need provide a username and password.  To do this, you will need to set up two environment variables on your computer.  These variables are `SOCKEYE_UID` and `SOCKEYE_PWD`.  So, if your SQL username were "some_username" and your password were "some_passwd", you could set these as so, in R:
 ```
   Sys.setenv('SOCKEYE_UID' = 'some_username', 
              'SOCKEYE_PWD' = 'some_passwd')

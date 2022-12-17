@@ -85,7 +85,7 @@
 </h2>
 <p>To use this package you will first need a login to the SQL Server <em>Sockeye</em> (at AWS-PROD-SQL\Sockeye). See the agency’s IT staff if you need a login created, or if have questions about this.</p>
 <p>If you are on a Windows machine, you should now have all you need in order to connect and retrieve data from both Elmer and ElmerGeo. This is because your Windows account can authenticate you seamlessly, without requiring you to supply another username and password.</p>
-<p>If you are on a Mac, Linux or TRS-80 machine you will need provide a username and password. To do this, you will need to set up two environment variables on your computer. These variables are <code>SOCKEYE_UID</code> and <code>SOCKEYE_PWD</code>. So, if your SQL username were “some_username” and your password were “some_passwd”, you could set these as so, in R:</p>
+<p>If you are on a Mac, Linux box or TRS-80 you will need provide a username and password. To do this, you will need to set up two environment variables on your computer. These variables are <code>SOCKEYE_UID</code> and <code>SOCKEYE_PWD</code>. So, if your SQL username were “some_username” and your password were “some_passwd”, you could set these as so, in R:</p>
 <pre><code><span>  <span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span><span class="st">'SOCKEYE_UID'</span> <span class="op">=</span> <span class="st">'some_username'</span>, </span>
 <span>             <span class="st">'SOCKEYE_PWD'</span> <span class="op">=</span> <span class="st">'some_passwd'</span><span class="op">)</span></span></code></pre>
 <p>Once these are set, you should be able to connect and run the functions in this package.</p>
