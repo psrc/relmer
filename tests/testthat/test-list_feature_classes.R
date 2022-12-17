@@ -9,6 +9,12 @@ test_that('list_feature_classes() accepts a parameter feature_dataset', {
   expect_equal(class(df), 'data.frame')
 })
 
+test_that('list_feature_classes() accepts a parameter feature_class', {
+  fc <- 'URBAN_CENTERS'
+  df <- psrcelmer::list_feature_classes(feature_class = fc)
+  expect_equal(class(df), 'data.frame')
+})
+
 test_that('list_feature_classes() returns a dataframe with more than 100 rows', {
   df <- psrcelmer::list_feature_classes()
   rowcount <- nrow(df)
