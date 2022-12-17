@@ -9,7 +9,7 @@ Elmer is a database containing the agency's general-use tabular data.  We are co
 
 ## What is *ElmerGeo*?
 
-ElmerGeo is PSRC's home for geospatial data for use by staff.  In the past we used shapefiles for our spatial data, but today we store these as layers within a geodatabase.  At PSRC, the database we use for this purpose is named *ElmerGeo*.  
+ElmerGeo is PSRC's home for geospatial data for use by staff.  In the past we used shapefiles for our spatial data, but today we store these as feature classes within a geodatabase.  At PSRC, the database we use for this purpose is named *ElmerGeo*.  
 
 
 ## Installation Instructions

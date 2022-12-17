@@ -75,8 +75,8 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://psrc.github.io/psrcelmer/">psrcelmer</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/leaflet/" class="external-link">leaflet</a></span><span class="op">)</span></span></code></pre></div>
 <p>With just two packages you can create an interactive map that
-displays layers from PSRC’s <em>ElmerGeo</em> database. This short
-article will show you how.</p>
+displays layers constructed from feature classes in PSRC’s
+<em>ElmerGeo</em> database. This short article will show you how.</p>
 <div class="section level2">
 <h2 id="what-is-leaflet">What is <em>Leaflet</em>?<a class="anchor" aria-label="anchor" href="#what-is-leaflet"></a>
 </h2>
@@ -98,12 +98,12 @@ encoding spatial data. In R, spatial datasets are typically stored as
 </h2>
 <p>You can make a simple map in essentially two steps (three if you
 count loading the libraries). The example below create a layer of county
-polygons from the COUNTY_BACKGROUND feature layer in ElmerGeo.</p>
+polygons from the COUNTY_BACKGROUND feature class in ElmerGeo.</p>
 <ol style="list-style-type: decimal">
 <li>Create the layer</li>
 </ol>
-<p>Here we create an <em>sf</em> layer from the data in ElmerGeo, using
-the <code><a href="../reference/st_read_elmergeo.html">st_read_elmergeo()</a></code> function:</p>
+<p>Here we create an <em>sf</em> layer from the feature class in
+ElmerGeo, using the <code><a href="../reference/st_read_elmergeo.html">st_read_elmergeo()</a></code> function:</p>
 <pre><code><span>  <span class="va">my_county_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/st_read_elmergeo.html">st_read_elmergeo</a></span><span class="op">(</span><span class="st">'COUNTY_BACKGROUND'</span><span class="op">)</span></span></code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Display our layer on a leaflet map.</li>

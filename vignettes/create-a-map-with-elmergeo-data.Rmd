@@ -19,7 +19,7 @@ library(psrcelmer)
 library(leaflet)
 ```
 
-With just two packages you can create an interactive map that displays layers from PSRC's *ElmerGeo* database.  This short article will show you how. 
+With just two packages you can create an interactive map that displays layers constructed from feature classes in PSRC's *ElmerGeo* database.  This short article will show you how. 
 
 ## What is *Leaflet*?
 
@@ -32,12 +32,12 @@ Leaflet is a popular open-source JavaScript library for interactive maps.  R has
 
 ## So how do I make a map?
 
-You can make a simple map in essentially two steps (three if you count loading the libraries).  The example below create a layer of county polygons from the COUNTY_BACKGROUND feature layer in ElmerGeo.
+You can make a simple map in essentially two steps (three if you count loading the libraries).  The example below create a layer of county polygons from the COUNTY_BACKGROUND feature class in ElmerGeo.
 
 
 1. Create the layer
 
-Here we create an *sf* layer from the data in ElmerGeo, using the `st_read_elmergeo()` function:
+Here we create an *sf* layer from the feature class in ElmerGeo, using the `st_read_elmergeo()` function:
 ```
   my_county_layer <- st_read_elmergeo('COUNTY_BACKGROUND')
 ```
