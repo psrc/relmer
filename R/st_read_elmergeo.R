@@ -126,21 +126,23 @@ reproject_sf <- function(lyr, out_epsg) {
 st_read_elmergeo <- function(layer_name, schema_name='dbo', project_to_wgs84 = TRUE) {
 
   tryCatch({
-    conn <- get_conn()
-    if (layer_type(layer_name, schema_name, conn) == 'evw') {
-      tbl_name <- glue::glue("{layer_name}_evw")
-    } else if (layer_type(layer_name, schema_name, conn) == 'nonversioned') {
-      tbl_name <- layer_name
-    } else if (layer_type(layer_name, schema_name, conn) == 'none') {
-      stop("no layer error")
-    }
-    layer_sql <- build_sql(schema_name=schema_name, tbl_name=tbl_name, conn)
-    lyr <- sf::st_read(conn, query=layer_sql)
-    lyr <- sf::st_set_crs(lyr, 2285) #2285 = WA State Plane N
-    if(project_to_wgs84){
-      lyr <- reproject_sf(lyr, 4326) #4326 = WGS84
-    }
-    DBI::dbDisconnect(conn)
+    suppressWarnings({
+      conn <- get_conn()
+      if (layer_type(layer_name, schema_name, conn) == 'evw') {
+        tbl_name <- glue::glue("{layer_name}_evw")
+      } else if (layer_type(layer_name, schema_name, conn) == 'nonversioned') {
+        tbl_name <- layer_name
+      } else if (layer_type(layer_name, schema_name, conn) == 'none') {
+        stop("no layer error")
+      }
+      layer_sql <- build_sql(schema_name=schema_name, tbl_name=tbl_name, conn)
+      lyr <- sf::st_read(conn, query=layer_sql)
+      lyr <- sf::st_set_crs(lyr, 2285) #2285 = WA State Plane N
+      if(project_to_wgs84){
+        lyr <- reproject_sf(lyr, 4326) #4326 = WGS84
+      }
+      DBI::dbDisconnect(conn)
+    })
     return(lyr)
   }, warning = function(w) {
     print(glue::glue("A warning popped up in st_read_elmergeo: {w}"))
