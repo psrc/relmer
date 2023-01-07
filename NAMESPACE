@@ -3,4 +3,5 @@
 export(get_query)
 export(get_table)
 export(list_feature_classes)
+export(list_recordsets)
 export(st_read_elmergeo)

@@ -26,7 +26,7 @@ Then load it with:
 
 ## Database Authentication
 
-To use this package you will first need a login to the SQL Server *Sockeye* (at AWS-PROD-SQL\\Sockeye).  See the agency's IT staff if you need a login created, or if have questions about this.  
+To use this package you will first need a login to the SQL Server *Sockeye* (at AWS-PROD-SQL\\Sockeye).  See the agency's IT staff if you need a login or have other questions about this.  
 
 If you are on a Windows machine, you should now have all you need in order to connect and retrieve data from both Elmer and ElmerGeo. This is because your Windows account can authenticate you seamlessly, without requiring you to supply another username and password.
 
