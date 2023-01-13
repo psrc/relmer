@@ -2,14 +2,14 @@
 % Please edit documentation in R/get_query.R
 \name{get_query}
 \alias{get_query}
-\title{get_query(db_name, sql)}
+\title{get_query(sql, db_name)}
 \usage{
-get_query(db_name = "Elmer", sql)
+get_query(sql, db_name = "Elmer")
 }
 \arguments{
-\item{db_name}{String.  The name of the database to run the query against.  Should be "Elmer" or "ElmerGeo".  Default = "Elmer".}
-
 \item{sql}{String.  The SQL command to send to <db_name>.}
+
+\item{db_name}{String.  The name of the database to run the query against.  Should be "Elmer" or "ElmerGeo".  Default = "Elmer".}
 }
 \value{
 A data frame.
@@ -19,6 +19,6 @@ Retrieve a dataset defined by a SQL string
 }
 \examples{
 get_query(sql = "select * from chas.tenure_dim")
-get_query(db_name = "ElmerGeo", sql = "select top 10 geoid10 from dbo.TRACT2010")
+get_query(sql = "select top 10 geoid10 from dbo.TRACT2010", db_name = "ElmerGeo")
 
 }
