@@ -1,5 +1,5 @@
 ---
-title: "Create a Map Basic with ElmerGeo Data"
+title: "Create a Basic Map with ElmerGeo Data"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{create-a-map-with-elmergeo-data}
