@@ -2,7 +2,7 @@
 title: "Create a Fancier Map with ElmerGeo Data, PSRC Colors, and Census data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{create-a-fancy-map-with-elmergeo-data}
+  %\VignetteIndexEntry{create-a-map-with-elmergeo-data-fancier}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,9 +16,9 @@ knitr::opts_chunk$set(
 
 ## Let's make a fancier looking map with PSRC colors using Census Data
 
-In the vignette [Create a Map with ElmerGeo Data](https://psrc.github.io/psrcelmer/articles/create-a-map-with-elmergeo-data.html), we showed you how to make a simple leaflet map with ElmerGeo data. What if you want to make a nicer looking map?
+In the vignette [Create a Map with ElmerGeo Data](https://psrc.github.io/psrcelmer/articles/create-a-map-with-elmergeo-data.html), we showed you how to make a simple leaflet map with ElmerGeo data. What if you want to make a more complex map?
 
-In this example we are going to use some of our homegrown libraries psrccensus and psrcplot to make a map of Census data using PSRC colors. This map will show usually working at home commute shares by Census Tract from the 5-year ACS 2017-2021 dataset. (It doesn't include workers who occasionally work at home, this messes up a lot).
+In this example, we are going to use some of our homegrown libraries- psrccensus and psrcplot- to make a map of Census data using PSRC colors. This map will show usually working at home commute shares by Census Tract from the 5-year ACS 2017-2021 dataset. (It doesn't include workers who occasionally work at home.)
 
 To make a fancier map, you will need more libraries. To use psrccensus you need an api key, [see this page](https://psrc.github.io/psrccensus/articles/psrccensus.html) for more info.
 ```{r setup, include=FALSE}
@@ -41,7 +41,8 @@ create_tract_map_telecommute <- function(census.tbl, census.lyr,
                                 map.title = NULL, map.subtitle = NULL,
                                 map.title.position = "topright",
                                 legend.title = NULL, legend.subtitle = NULL,
-                                map.lat=47.615, map.lon=-122.257, map.zoom=8.5, wgs84=4326){
+                                map.lat=47.615, map.lon=-122.257, 
+                                map.zoom=8.5, wgs84=4326){
   
   
   tbl <- census.tbl 
@@ -53,7 +54,8 @@ create_tract_map_telecommute <- function(census.tbl, census.lyr,
   pal <- leaflet::colorNumeric(palette=color.ramp, domain = c.layer$work_at_home_share)
   
   
-  labels <- paste0( "Work at Home Share: ", percent(c.layer$work_at_home_share, accuracy=1)) %>% 
+  labels <- paste0( "Work at Home Share: ", 
+    percent(c.layer$work_at_home_share, accuracy=1)) %>% 
     lapply(htmltools::HTML)
   
 
@@ -61,7 +63,7 @@ create_tract_map_telecommute <- function(census.tbl, census.lyr,
   
   m <- leaflet::leaflet() %>%
     leaflet::addMapPane(name = "polygons", zIndex = 410) %>%
-    leaflet::addMapPane(name = "maplabels", zIndex = 500) %>% # higher zIndex rendered on top
+    leaflet::addMapPane(name = "maplabels", zIndex = 500) %>% 
     leaflet::addProviderTiles("CartoDB.VoyagerNoLabels") %>%
     leaflet::addProviderTiles("CartoDB.VoyagerOnlyLabels",
                               options = leaflet::leafletOptions(pane = "maplabels"),
@@ -69,7 +71,8 @@ create_tract_map_telecommute <- function(census.tbl, census.lyr,
     
     leaflet::addEasyButton(leaflet::easyButton(icon="fa-globe",
                                                title="Region",
-                                               onClick=leaflet::JS("function(btn, map){map.setView([47.615,-122.257],8.5); }"))) %>%
+                                               onClick=leaflet::JS("function(btn, map)
+                                               {map.setView([47.615,-122.257],8.5); }"))) %>%
     leaflet::addPolygons(data=c.layer,
                          fillOpacity = 0.9,
                          fillColor = pal(c.layer$work_at_home_share),
@@ -114,16 +117,18 @@ create_tract_map_telecommute <- function(census.tbl, census.lyr,
 
 ### Get the Census data and format it to use with a map
 
-This first step gets commute mode totals by tract for each mode. 
+This step gets commute mode totals by tract for each mode using psrccensus.
 
 ```{r}
-mode_to_work <- psrccensus::get_acs_recs(geography='tract',table.names=c('B08006'),years=c(2021))
+mode_to_work <- psrccensus::get_acs_recs(geography='tract',
+                table.names=c('B08006'),years=c(2021))
 all_workers_tract<-mode_to_work%>%
   filter(label=='Estimate!!Total:')
 home_workers_tract<-mode_to_work%>%
   filter(label=='Estimate!!Total:!!Worked from home')
 
-home_workers_join<-merge(all_workers_tract, home_workers_tract, by= 'GEOID', suffixes=c('_all', '_home'))
+home_workers_join<-merge(all_workers_tract, home_workers_tract, by= 'GEOID', 
+                         suffixes=c('_all', '_home'))
 ```
 
 Then we calculate work from shares as work from home total divided by total workers.
