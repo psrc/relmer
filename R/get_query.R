@@ -1,18 +1,18 @@
-#' get_query(db_name, sql)
-#' 
+#' get_query(sql, db_name)
+#'
 #' Retrieve a dataset defined by a SQL string
 #'
+#' @param sql String.  The SQL command to send to <db_name>.
 #' @param db_name String.  The name of the database to run the query against.  Should be "Elmer" or "ElmerGeo".  Default = "Elmer".
-#' @param sql String.  The SQL command to send to <db_name>.  
 #' @return A data frame.
-#' 
+#'
 #' @examples
 #' get_query(sql = "select * from chas.tenure_dim")
-#' get_query(db_name = "ElmerGeo", sql = "select top 10 geoid10 from dbo.TRACT2010")
+#' get_query(sql = "select top 10 geoid10 from dbo.TRACT2010", db_name = "ElmerGeo")
 #'
 #' @export
-get_query <- function(db_name = 'Elmer', sql) {
-  
+get_query <- function(sql, db_name = 'Elmer') {
+
   tryCatch({
     conn <- get_conn(dbname = db_name)
     df <- DBI::dbGetQuery(conn, DBI::SQL(sql))
@@ -27,7 +27,7 @@ get_query <- function(db_name = 'Elmer', sql) {
 }
 
 get_query_elmer <- function(sql) {
-  
+
   tryCatch({
     df <- get_query('elmer', sql)
   }, warning = function(w) {

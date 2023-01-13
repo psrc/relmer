@@ -1,0 +1,25 @@
+---
+title: "How to access tabular data in Elmer with `psrcelmer`."
+output: rmarkdown::html_vignette
+vignette: > 
+  %\VignetteIndexEntry{How to Access Tabular Data in Elmer}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+*Elmer* is PSRC's canonical storehouse for tabular datasets.  For example, if you want to analyze data from PSRC's Household Travel Survey or Park & Ride Inventory, you should get that data from Elmer.  The same goes for the Covered Employment summaries, Macroeconomic forecasts, population estimates from OFM, and others.  
+
+If you are an R user, the quickest and most direct way to get data from Elmer is through this package, *psrcelmer*.  
+
+### Tables vs. Views
+
+The datasets within Elmer are stored in tables, which are static sets of records.  Although shape and format of these tables have been designed for speed of data retrieval, they are not always the most intuitively obvious formats for users to consume.
+
+In most cases, *views*, are better data sets to pull into R than tables are.  Views are essentially stored queries within Elmer that reshape and present the data sets in a way that are 
