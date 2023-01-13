@@ -1,0 +1,154 @@
+---
+title: "Create a Fancier Map with ElmerGeo Data, PSRC Colors, and Census data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{create-a-fancy-map-with-elmergeo-data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Let's make a fancier looking map with PSRC colors using Census Data
+
+In the vignette [Create a Map with ElmerGeo Data](https://psrc.github.io/psrcelmer/articles/create-a-map-with-elmergeo-data.html), we showed you how to make a simple leaflet map with ElmerGeo data. What if you want to make a nicer looking map?
+
+In this example we are going to use some of our homegrown libraries psrccensus and psrcplot to make a map of Census data using PSRC colors. This map will show usually working at home commute shares by Census Tract from the 5-year ACS 2017-2021 dataset. (It doesn't include workers who occasionally work at home, this messes up a lot).
+
+To make a fancier map, you will need more libraries. To use psrccensus you need an api key, [see this page](https://psrc.github.io/psrccensus/articles/psrccensus.html) for more info.
+```{r setup, include=FALSE}
+library(psrcelmer)
+library(psrcplot)
+library(psrccensus)
+library(sf)
+library(leaflet)
+library(dplyr)
+library(scales)
+
+Sys.getenv("CENSUS_API_KEY")
+```
+
+## Function to make a map of telecommuting by tract
+
+This function will make a map for telecommuting by tract. We need to set up the data first before we can run it, which we do below.
+```{r make-a-map}
+create_tract_map_telecommute <- function(census.tbl, census.lyr,
+                                map.title = NULL, map.subtitle = NULL,
+                                map.title.position = "topright",
+                                legend.title = NULL, legend.subtitle = NULL,
+                                map.lat=47.615, map.lon=-122.257, map.zoom=8.5, wgs84=4326){
+  
+  
+  tbl <- census.tbl 
+  
+  c.layer <- dplyr::left_join(census.lyr,census.tbl, by = c('geoid20'='GEOID')) %>%
+    sf::st_transform(wgs84)
+  
+  color.ramp <- colorRamp(psrcplot::psrc_colors$purples_inc, interpolate="spline")
+  pal <- leaflet::colorNumeric(palette=color.ramp, domain = c.layer$work_at_home_share)
+  
+  
+  labels <- paste0( "Work at Home Share: ", percent(c.layer$work_at_home_share, accuracy=1)) %>% 
+    lapply(htmltools::HTML)
+  
+
+  
+  
+  m <- leaflet::leaflet() %>%
+    leaflet::addMapPane(name = "polygons", zIndex = 410) %>%
+    leaflet::addMapPane(name = "maplabels", zIndex = 500) %>% # higher zIndex rendered on top
+    leaflet::addProviderTiles("CartoDB.VoyagerNoLabels") %>%
+    leaflet::addProviderTiles("CartoDB.VoyagerOnlyLabels",
+                              options = leaflet::leafletOptions(pane = "maplabels"),
+                              group = "Labels") %>%
+    
+    leaflet::addEasyButton(leaflet::easyButton(icon="fa-globe",
+                                               title="Region",
+                                               onClick=leaflet::JS("function(btn, map){map.setView([47.615,-122.257],8.5); }"))) %>%
+    leaflet::addPolygons(data=c.layer,
+                         fillOpacity = 0.9,
+                         fillColor = pal(c.layer$work_at_home_share),
+                         weight = 0.7,
+                         color = "#BCBEC0",
+                         group="Population",
+                         opacity = 0,
+                         stroke=FALSE,
+                         options = leaflet::leafletOptions(pane = "polygons"),
+                         dashArray = "",
+                         highlight = leaflet::highlightOptions(
+                           weight =5,
+                           color = "76787A",
+                           dashArray ="",
+                           fillOpacity = 0.9,
+                           bringToFront = TRUE),
+                         label = labels,
+                         labelOptions = leaflet::labelOptions(
+                           style = list("font-weight" = "normal", padding = "3px 8px"),
+                           textsize = "15px",
+                           direction = "auto",
+                           font="Poppins")) %>%
+    
+    leaflet::addLegend(pal = pal,
+                       values = c.layer$work_at_home_share,
+                       labFormat = labelFormat(
+                         suffix = "%",
+                         transform = function(x) 100 * x
+                       ),
+                       position = "bottomright",
+                       title = paste(legend.title, '<br>', legend.subtitle)) %>%
+    
+    leaflet::addLayersControl(baseGroups = "CartoDB.PositronNoLabels",
+                              overlayGroups = c("Labels", "Population")) %>%
+    
+    leaflet::setView(lng=map.lon, lat=map.lat, zoom=map.zoom)
+  
+  return(m)
+} 
+```
+
+
+### Get the Census data and format it to use with a map
+
+This first step gets commute mode totals by tract for each mode. 
+
+```{r}
+mode_to_work <- psrccensus::get_acs_recs(geography='tract',table.names=c('B08006'),years=c(2021))
+all_workers_tract<-mode_to_work%>%
+  filter(label=='Estimate!!Total:')
+home_workers_tract<-mode_to_work%>%
+  filter(label=='Estimate!!Total:!!Worked from home')
+
+home_workers_join<-merge(all_workers_tract, home_workers_tract, by= 'GEOID', suffixes=c('_all', '_home'))
+```
+
+Then we calculate work from shares as work from home total divided by total workers.
+```{r}
+home_workers_share<- home_workers_join%>%
+  mutate(work_at_home_share=estimate_home/estimate_all)
+```
+
+Now you can use your psrcelmer package to read in the 2020 Tract Layer.
+```{r}
+
+tract.lyr<-st_read_elmergeo('TRACT2020_NOWATER')
+```
+
+Now we have all the data to create the map. If you want to make similar maps, you can modify the function code above to deal with the specifics of your datasets.
+
+Here's how to call the function to make your map:
+```{r}
+telecommute_share_map<-create_tract_map_telecommute(home_workers_share, tract.lyr)
+```
+
+And here's how the map looks:
+```{r}
+telecommute_share_map
+```
+
+
+

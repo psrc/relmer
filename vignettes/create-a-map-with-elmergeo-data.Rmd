@@ -53,3 +53,5 @@ If you are using RStudio this map should automatically be rendered in the *viewe
     addPolygons(data = my_county_layer)
 ```
 
+
+### Want to learn more? See [Create a fancy map with ElmerGeo data] (https://psrc.github.io/psrcelmer/articles/create-a-fancy-map-with-elmergeo-data.html)
