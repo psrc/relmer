@@ -1,5 +1,5 @@
 check_sql_driver <- function(driver_name) {
-  
+
   tryCatch({
     drivers <- odbc::odbcListDrivers()
     d_names <- drivers$name
@@ -26,16 +26,32 @@ is.windows <- function() {
     }
     return(is.win)
   }, warning = function(w) {
-    print(glue::glue("A warning popped up in get_os: {w}"))
+    print(glue::glue("A warning popped up in is.windows: {w}"))
   }, error = function(e) {
-    print(glue::glue("An error happened in get_os: {e}"))
+    print(glue::glue("An error happened in is.windows: {e}"))
+    stop(e)
+  })
+}
+
+is.linux <- function() {
+  tryCatch({
+    sysname = Sys.info()['sysname']
+    is.linux <- FALSE
+    if (sysname == 'Linux') {
+      is.linux <- TRUE
+    }
+    return(is.linux)
+  }, warning = function(w) {
+    print(glue::glue("A warning popped up in is.linux: {w}"))
+  }, error = function(e) {
+    print(glue::glue("An error happened in is.linux: {e}"))
     stop(e)
   })
 }
 
 
 build_conn <- function(dbname, driver_name) {
-  
+
   tryCatch({
     if (is.windows()) {
       conn <- DBI::dbConnect(odbc::odbc(),
@@ -43,6 +59,15 @@ build_conn <- function(dbname, driver_name) {
                              server = "AWS-PROD-SQL\\Sockeye",
                              database = dbname,
                              trusted_connection = "yes")
+    } else if (is.linux())  {
+      auth <- get_auth()
+      driver_name = 'SQL Server'
+      conn <- DBI::dbConnect(odbc::odbc(),
+                             driver = driver_name,
+                             server = "AWS-PROD-SQL\\Sockeye",
+                             database = dbname,
+                             uid = auth$uid,
+                             pwd = auth$pwd)
     } else {
       auth <- get_auth()
       conn <- DBI::dbConnect(odbc::odbc(),
