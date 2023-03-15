@@ -54,6 +54,7 @@ build_conn <- function(dbname, driver_name) {
 
   tryCatch({
     if (is.windows()) {
+      check_sql_driver(driver_name)
       conn <- DBI::dbConnect(odbc::odbc(),
                              driver = driver_name,
                              server = "AWS-PROD-SQL\\Sockeye",
@@ -62,6 +63,7 @@ build_conn <- function(dbname, driver_name) {
     } else if (is.linux())  {
       auth <- get_auth()
       driver_name = 'SQL Server'
+      check_sql_driver(driver_name)
       conn <- DBI::dbConnect(odbc::odbc(),
                              driver = driver_name,
                              server = "AWS-PROD-SQL\\Sockeye",
@@ -70,6 +72,7 @@ build_conn <- function(dbname, driver_name) {
                              pwd = auth$pwd)
     } else {
       auth <- get_auth()
+      check_sql_driver(driver_name)
       conn <- DBI::dbConnect(odbc::odbc(),
                              driver = driver_name,
                              server = "AWS-PROD-SQL\\Sockeye",
@@ -90,7 +93,6 @@ get_conn <- function(dbname='ElmerGeo') {
 
   tryCatch({
     driver_name = 'ODBC Driver 17 for SQL Server'
-    check_sql_driver(driver_name)
     conn <- build_conn(dbname, driver_name)
     return(conn)
   }, warning = function(w) {
