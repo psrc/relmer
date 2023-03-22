@@ -1,5 +1,5 @@
 Package: psrcelmer
-Title: Provides streamlined methods to retrieve data from PSRC's databases Elmer and ElmerGeo.
+Title: Provides streamlined methods to retrieve data from PSRC's databases Elmer and ElmerGeo
 Version: 0.0.0.9000
 Authors@R: c(
     person("Chris", "Peak", , email = "cpeak@psrc.org", role = c("aut", "cre")),
@@ -15,12 +15,11 @@ Imports:
   glue,
   odbc,
   sf,
-  magrittr,
-  yaml
+  stringr
 Suggests: 
-    knitr, 
-    rmarkdown,
-    testthat (>= 3.0.0)
+  knitr, 
+  rmarkdown,
+  testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 URL: https://psrc.github.io/psrcelmer/

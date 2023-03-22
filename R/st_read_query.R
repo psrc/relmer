@@ -1,3 +1,14 @@
+#' st_read_query(sql, ...)
+#'
+#' Read geometric data to simple features with a query
+#' Allows you to return part of a spatial table
+#' For an entire spatial table from either Elmer or ElmerGeo, use st_read_elmergeo(layer_name, ...)
+#'
+#' @param db_name String.  The name of the database to run the query against.  Should be "Elmer" or "ElmerGeo".  Default = "Elmer".
+#' @param sql String.  The SQL command to send to <db_name>.
+#' @param project_to_wgs84 (TRUE/FALSE) If TRUE then deliver the output in WGS84 projection, otherwise NAD84 / WA State Plane North.  Defaults to TRUE.
+#' @return object of class sf
+#'
 #' @export
 st_read_query <- function(sql, db_name = 'Elmer',  project_to_wgs84 = TRUE) {
 
