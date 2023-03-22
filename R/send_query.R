@@ -14,7 +14,6 @@ send_query <- function(db_name = 'Elmer', sql) {
     conn <- get_conn(dbname = db_name)
     DBI::dbSendQuery(conn, DBI::SQL(sql))
     DBI::dbDisconnect(conn)
-    return(df)
   }, warning = function(w) {
     print(glue::glue("A warning popped up in send__query: {w}"))
   }, error = function(e) {
