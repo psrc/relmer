@@ -48,7 +48,7 @@ stage_table <- function(df, table_name=name(df)) {
   tryCatch({
     conn <- get_conn(dbname = "Elmer")
     table_id <- DBI::Id(schema="stg", table=table_name)
-    DBI::dbWriteTable(sockeye_connection, table_id, df, overwrite=TRUE)
+    DBI::dbWriteTable(conn, table_id, df, overwrite=TRUE)
     DBI::dbDisconnect(conn)
     return(invisible(NULL))
   }, warning = function(w) {
