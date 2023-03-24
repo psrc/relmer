@@ -14,6 +14,7 @@ send_query <- function(db_name = 'Elmer', sql) {
     conn <- get_conn(dbname = db_name)
     DBI::dbSendQuery(conn, DBI::SQL(sql))
     DBI::dbDisconnect(conn)
+    return(invisible(NULL))
   }, warning = function(w) {
     print(glue::glue("A warning popped up in send__query: {w}"))
   }, error = function(e) {
@@ -33,3 +34,28 @@ send_query_elmer <- function(sql) {
     stop(e)
   })
 }
+
+#' stage_table(df, table_name)
+#'
+#' Write a dataframe as a table within the Elmer.stg schema
+#'
+#' @param df dataframe - the data object to write
+#' @param table_name string - the name you want given the database table
+#'
+#' @export
+stage_table <- function(df, table_name=name(df)) {
+
+  tryCatch({
+    conn <- get_conn(dbname = "Elmer")
+    table_id <- Id(schema="stg", table=table_name)
+    DBI::dbWriteTable(sockeye_connection, table_id, df, overwrite=TRUE)
+    DBI::dbDisconnect(conn)
+    return(invisible(NULL))
+  }, warning = function(w) {
+    print(glue::glue("A warning popped up in send__query: {w}"))
+  }, error = function(e) {
+    print(glue::glue("An error happened in send__query: {e}"))
+    stop(e)
+  })
+}
+
