@@ -8,11 +8,11 @@
 #' @param sql String.  The SQL command to send to <db_name>.
 #'
 #' @export
-send_query <- function(db_name = 'Elmer', sql) {
+sql_execute <- function(sql, db_name='Elmer') {
 
   tryCatch({
     conn <- get_conn(dbname = db_name)
-    DBI::dbSendQuery(conn, DBI::SQL(sql))
+    DBI::dbExecute(conn=conn, statement=DBI::SQL(sql))
     DBI::dbDisconnect(conn)
     return(invisible(NULL))
   }, warning = function(w) {
@@ -23,10 +23,10 @@ send_query <- function(db_name = 'Elmer', sql) {
   })
 }
 
-send_query_elmer <- function(sql) {
+sql_execute_elmer <- function(sql) {
 
   tryCatch({
-    send_query('elmer', sql)
+    sql_execute(sql, 'Elmer')
   }, warning = function(w) {
     print(glue::glue("A warning popped up in send__query_elmer: {w}"))
   }, error = function(e) {
@@ -43,7 +43,7 @@ send_query_elmer <- function(sql) {
 #' @param table_name string - the name you want given the database table
 #'
 #' @export
-stage_table <- function(df, table_name=name(df)) {
+stage_table <- function(df, table_name=deparse(substitute(df))) {
 
   tryCatch({
     conn <- get_conn(dbname = "Elmer")

@@ -15,7 +15,7 @@ get_query <- function(sql, db_name = 'Elmer') {
 
   tryCatch({
     conn <- get_conn(dbname = db_name)
-    df <- DBI::dbGetQuery(conn, DBI::SQL(sql))
+    df <- DBI::dbGetQuery(conn=conn, statement=DBI::SQL(sql))
     DBI::dbDisconnect(conn)
     return(df)
   }, warning = function(w) {
@@ -29,7 +29,7 @@ get_query <- function(sql, db_name = 'Elmer') {
 get_query_elmer <- function(sql) {
 
   tryCatch({
-    df <- get_query('elmer', sql)
+    df <- get_query(sql, 'Elmer')
   }, warning = function(w) {
     print(glue::glue("A warning popped up in get_query_elmer: {w}"))
   }, error = function(e) {
