@@ -55,7 +55,7 @@ create_tract_map_telecommute <- function(census.tbl, census.lyr,
   
   
   labels <- paste0( "Work at Home Share: ", 
-    percent(c.layer$work_at_home_share, accuracy=1)) %>% 
+    scales::percent(c.layer$work_at_home_share, accuracy=1)) %>% 
     lapply(htmltools::HTML)
   
 
