@@ -57,7 +57,7 @@ build_conn <- function(dbname, driver_name) {
       check_sql_driver(driver_name)
       conn <- DBI::dbConnect(odbc::odbc(),
                              driver = driver_name,
-                             server = "AWS-PROD-SQL\\Sockeye",
+                             server = "SQLserver",
                              database = dbname,
                              trusted_connection = "yes")
     } else if (is.linux())  {
@@ -66,7 +66,7 @@ build_conn <- function(dbname, driver_name) {
       check_sql_driver(driver_name)
       conn <- DBI::dbConnect(odbc::odbc(),
                              driver = driver_name,
-                             server = "AWS-PROD-SQL\\Sockeye",
+                             server = "SQLserver",
                              database = dbname,
                              uid = auth$uid,
                              pwd = auth$pwd)
@@ -75,7 +75,7 @@ build_conn <- function(dbname, driver_name) {
       check_sql_driver(driver_name)
       conn <- DBI::dbConnect(odbc::odbc(),
                              driver = driver_name,
-                             server = "AWS-PROD-SQL\\Sockeye",
+                             server = "SQLserver",
                              database = dbname,
                              uid = auth$uid,
                              pwd = auth$pwd)
